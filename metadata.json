@@ -1,0 +1,5 @@
+{
+  "name": "Remix: CodeMind Analyst",
+  "description": "An intelligent GitHub repository analyzer that reviews code, suggests improvements with deep reasoning, and integrates external resources.",
+  "requestFramePermissions": []
+}
