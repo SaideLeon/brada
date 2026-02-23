@@ -1,6 +1,6 @@
 # Documentação do Componente App.tsx
 
-O componente `App.tsx` é o ponto de entrada principal e o orquestrador da aplicação **CodeMind Analista**. Ele gerencia o estado global, o roteamento de visualizações (entrada de repositório vs. dashboard) e a comunicação com os serviços de IA.
+O componente `App.tsx` é o ponto de entrada principal e o orquestrador da aplicação **Brada Iota**. Ele gerencia o estado global, o roteamento de visualizações (entrada de repositório vs. dashboard) e a comunicação com os serviços de IA.
 
 ## Funcionalidades Principais
 

@@ -10,7 +10,7 @@ const router = Router();
 // Helper to get headers
 const getGithubHeaders = (req: any) => {
   const headers: any = {
-    'User-Agent': 'CodeMind-Analyst',
+    'User-Agent': 'Brada-Iota',
     'Accept': 'application/vnd.github.v3+json'
   };
   
@@ -104,7 +104,7 @@ router.get("/repos", async (req, res, next) => {
     }
 
     const headers = {
-      'User-Agent': 'CodeMind-Analyst',
+      'User-Agent': 'Brada-Iota',
       'Accept': 'application/vnd.github.v3+json',
       'Authorization': `Bearer ${userToken}`
     };
