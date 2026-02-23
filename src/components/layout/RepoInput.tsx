@@ -7,6 +7,7 @@ export const RepoInput = ({ onAnalyze, isLoading }: { onAnalyze: (url: string) =
   const [url, setUrl] = useState('');
   const [userRepos, setUserRepos] = useState<any[]>([]);
   const [isLoadingRepos, setIsLoadingRepos] = useState(false);
+  const [repoError, setRepoError] = useState<string | null>(null);
   const [hasToken, setHasToken] = useState(false);
   const [repoSearch, setRepoSearch] = useState('');
   const [showAllRepos, setShowAllRepos] = useState(false);
@@ -22,11 +23,13 @@ export const RepoInput = ({ onAnalyze, isLoading }: { onAnalyze: (url: string) =
 
   const loadUserRepos = async () => {
     setIsLoadingRepos(true);
+    setRepoError(null);
     try {
       const repos = await githubApi.getUserRepos();
       setUserRepos(repos);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to load repos", error);
+      setRepoError(error.message || "Falha ao buscar repositórios");
     } finally {
       setIsLoadingRepos(false);
     }
@@ -184,6 +187,16 @@ export const RepoInput = ({ onAnalyze, isLoading }: { onAnalyze: (url: string) =
               <div className="flex flex-col items-center justify-center py-20 gap-4">
                 <Loader2 className="w-10 h-10 animate-spin text-indigo-500" />
                 <p className="text-gray-500 text-sm animate-pulse">Sincronizando com o GitHub...</p>
+              </div>
+            ) : repoError ? (
+              <div className="flex flex-col items-center justify-center py-10 gap-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+                <p className="text-red-400 text-sm font-medium">{repoError}</p>
+                <button 
+                  onClick={loadUserRepos}
+                  className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 rounded-lg text-sm transition-colors"
+                >
+                  Tentar novamente
+                </button>
               </div>
             ) : (
               <div className="space-y-6">

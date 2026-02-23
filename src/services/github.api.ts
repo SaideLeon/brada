@@ -13,7 +13,16 @@ export const githubApi = {
     if (!headers['x-github-token']) return [];
 
     const res = await fetch('/api/github/repos', { headers });
-    if (!res.ok) throw new Error("Falha ao buscar repositórios");
+    if (!res.ok) {
+        let errorMsg = "Falha ao buscar repositórios";
+        try {
+            const errData = await res.json();
+            errorMsg = errData.error || errData.message || errorMsg;
+        } catch {
+            errorMsg += ` (${res.status} ${res.statusText})`;
+        }
+        throw new Error(errorMsg);
+    }
     return res.json();
   },
 
