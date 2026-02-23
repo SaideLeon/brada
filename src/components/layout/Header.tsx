@@ -16,6 +16,8 @@ export const Header = ({ apiKeys = [], keyIndex = 0, onUploadKeys, onLogoClick }
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const [githubToken, setGithubToken] = useState('');
 
+  const [githubStatus, setGithubStatus] = useState<string | null>(null);
+
   useEffect(() => {
     const token = localStorage.getItem('github_token');
     if (token) setGithubToken(token);
@@ -28,13 +30,32 @@ export const Header = ({ apiKeys = [], keyIndex = 0, onUploadKeys, onLogoClick }
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  const handleSaveToken = () => {
+  const handleSaveToken = async () => {
     if (githubToken.trim()) {
-      localStorage.setItem('github_token', githubToken.trim());
+      const token = githubToken.trim();
+      localStorage.setItem('github_token', token);
+      
+      try {
+        setGithubStatus("Validando token...");
+        const res = await fetch('/api/github/repos', {
+          headers: { 'x-github-token': token }
+        });
+        
+        if (res.ok) {
+          setGithubStatus("Sucesso! Conectado ao GitHub.");
+          window.dispatchEvent(new Event('github_token_updated'));
+        } else {
+          setGithubStatus("Erro: Token inválido ou sem permissão.");
+        }
+      } catch (err) {
+        setGithubStatus("Erro ao conectar com GitHub.");
+      }
+      setTimeout(() => setGithubStatus(null), 3000);
     } else {
       localStorage.removeItem('github_token');
+      setGithubStatus("Token removido.");
+      setTimeout(() => setGithubStatus(null), 3000);
     }
-    // Visual feedback could be added here
   };
 
   const toggleFullscreen = async () => {
@@ -175,6 +196,11 @@ export const Header = ({ apiKeys = [], keyIndex = 0, onUploadKeys, onLogoClick }
             <p className="text-xs text-gray-500">
               Adicione seu token pessoal para aumentar os limites de taxa da API e acessar repositórios privados.
             </p>
+            {githubStatus && (
+              <p className={`text-xs ${githubStatus.includes('Erro') ? 'text-red-400' : 'text-emerald-400'}`}>
+                {githubStatus}
+              </p>
+            )}
           </div>
 
           <div className="space-y-2">

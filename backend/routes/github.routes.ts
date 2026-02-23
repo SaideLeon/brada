@@ -17,8 +17,6 @@ const getGithubHeaders = (req: any) => {
   const userToken = req.headers['x-github-token'] as string;
   if (userToken) {
     headers['Authorization'] = `Bearer ${userToken}`;
-  } else if (config.githubToken) {
-    headers['Authorization'] = `Bearer ${config.githubToken}`;
   }
   
   return headers;
