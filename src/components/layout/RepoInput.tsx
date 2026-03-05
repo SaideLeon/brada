@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Github, Search, Loader2, Lock, Unlock, Star, GitFork, RefreshCw, Filter } from 'lucide-react';
+import { Github, Search, Loader2, Lock, Unlock, Star, GitFork, RefreshCw, Filter, Brain, Network, MessagesSquare } from 'lucide-react';
 import { githubApi } from '@/services/github.api';
 
 export const RepoInput = ({ onAnalyze, isLoading }: { onAnalyze: (url: string) => void, isLoading: boolean }) => {
@@ -99,12 +99,39 @@ export const RepoInput = ({ onAnalyze, isLoading }: { onAnalyze: (url: string) =
         className="max-w-5xl w-full space-y-12"
       >
         <div className="space-y-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
+            Brada Iota
+          </span>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
-            Analise Repositórios GitHub com Raciocínio Profundo
+            Inteligência semântica para entender qualquer repositório GitHub
           </h1>
           <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
-            Cole um link do GitHub ou navegue pelos seus repositórios para obter uma revisão de código abrangente e insights inteligentes.
+            O Brada Iota é um ecossistema de análise estática e interpretativa que transforma código em contexto acionável: mapeie estruturas complexas, navegue por relações entre arquivos e converse com um LLM consciente do grafo do projeto.
           </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+          <div className="bg-[#111] border border-white/10 rounded-xl p-5 space-y-3">
+            <Brain className="w-5 h-5 text-indigo-300" />
+            <h3 className="text-sm font-semibold text-white">Contexto semântico profundo</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Extraia significado estrutural do código-fonte com análise estática orientada a entidades, dependências e padrões arquiteturais.
+            </p>
+          </div>
+          <div className="bg-[#111] border border-white/10 rounded-xl p-5 space-y-3">
+            <Network className="w-5 h-5 text-indigo-300" />
+            <h3 className="text-sm font-semibold text-white">Visão de grafo do repositório</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Tenha clareza sobre módulos, fluxos e conexões entre arquivos para interpretar sistemas grandes sem se perder na complexidade.
+            </p>
+          </div>
+          <div className="bg-[#111] border border-white/10 rounded-xl p-5 space-y-3">
+            <MessagesSquare className="w-5 h-5 text-indigo-300" />
+            <h3 className="text-sm font-semibold text-white">Chat com LLM orientado ao código</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Interaja em linguagem natural com um assistente que raciocina com consciência do grafo de arquivos e do contexto real do projeto.
+            </p>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="relative max-w-xl mx-auto w-full">
