@@ -24,6 +24,6 @@ export const config: AppConfig = {
   githubClientId: getEnv('GITHUB_CLIENT_ID'),
   githubClientSecret: getEnv('GITHUB_CLIENT_SECRET'),
   appUrl: getEnv('APP_URL'),
-  geminiApiKey: getEnv('GEMINI_API_KEY', true)!,
+  geminiApiKey: getEnv('GEMINI_API_KEY', false) || 'dummy',
   nodeEnv: getEnv('NODE_ENV') || 'development',
 };
