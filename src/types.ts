@@ -22,3 +22,24 @@ export interface AnalysisMessage {
   isThinking?: boolean;
   relatedLinks?: { title: string; url: string }[];
 }
+
+export type SecuritySeverity = 'CRITICO' | 'ALTO' | 'MEDIO';
+
+export interface SecurityFinding {
+  rule: string;
+  severity: SecuritySeverity;
+  location: string;
+  description: string;
+  evidence: string;
+}
+
+export interface SecurityAuditResult {
+  projectName: string;
+  date: string;
+  findings: SecurityFinding[];
+  score: number;
+  counts: Record<SecuritySeverity, number>;
+  classification: string;
+  classificationLabel: string;
+  discardedInvalidRules?: string[];
+}
